@@ -1,6 +1,6 @@
-import tabula
 import pandas as pd
 import os
+import camelot
 import zipfile
 
 # PDF
@@ -12,23 +12,25 @@ pasta_pdf = os.path.join(parent_dir, "docs", "Anexo I.pdf") # Encontrando o arqu
 if not os.path.exists(pasta_pdf):
     print("Arquivo nao encontrado")
 
-print(f"Tentando extrair tabelas de: {pasta_pdf}")
-
-# Extraindo todas as tabelas
+# Extração das tabelas
 try:
-    tables = tabula.read_pdf(
+    tables = camelot.read_pdf(
         pasta_pdf,
-        pages = 'all', # Extrai todas as páginas
-        multiple_tables = True, # Pode haver mais de uma tabela por página
-        guess = True, # Tenta advinhar a estrutura da tabela
-        lattice = True # Se guia com as linhas da tabela
+        pages='5',
+        flavor='stream',
+        strip_text='\n',
+        suppress_stdout=False
     )
 
-    print(f"Número de tabelas encontradas: {len(tables)}")
+    print(f"Total de tabelas detectadas: {len(tables)}")
 
-    if len(tables) > 0:
-        print("Visualizando a primeira tabela encontrada:")
-        print(tables[0].head())
+    # Mostrando informações das tabelas extraidas
+    for i, table in enumerate(tables[:1]): # Mostrando a primeira tabela extraida
+        print(f"\nTabela {i+1}:")
+        print(f"- Página: {table.page}")
+        print(f"- Dimensões: {table.shape}")
+        print("Primeiras linhas:")
+        print(table.df.head(6).to_string())
 
 except Exception as erro:
-    print(f"Erro ao extrair tabelas: {erro}")
+    print(f"Erro durante a extração: {str(erro)}")
