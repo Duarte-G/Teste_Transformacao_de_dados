@@ -16,14 +16,15 @@ if not os.path.exists(pasta_pdf):
 try:
     tables = camelot.read_pdf(
         pasta_pdf,
-        pages='5',
+        pages='3-13', # Extraindo apenas da página 3 até 13 para exemplo (1 e 2 não há tabelas)
         flavor='stream',
+        row_tol=15, # Tolerância para unir textos de duas linhas em apenas uma
         strip_text='\n',
-        suppress_stdout=False
+        suppress_stdout=True
     )
 
     print(f"Total de tabelas detectadas: {len(tables)}")
-
+    
     # Mostrando informações das tabelas extraidas
     for i, table in enumerate(tables[:1]): # Mostrando a primeira tabela extraida
         print(f"\nTabela {i+1}:")
@@ -31,6 +32,8 @@ try:
         print(f"- Dimensões: {table.shape}")
         print("Primeiras linhas:")
         print(table.df.head(6).to_string())
+
+    print(f"Total de tabelas detectadas: {len(tables)}")
 
 except Exception as erro:
     print(f"Erro durante a extração: {str(erro)}")
