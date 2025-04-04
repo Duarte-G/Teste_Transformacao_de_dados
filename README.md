@@ -22,3 +22,4 @@ Certifique-se de ter o Python 3 instalado. Em seguida, instale as dependências 
 
 ```bash
 pip install pandas numpy camelot-py[cv]
+```
