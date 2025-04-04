@@ -2,7 +2,7 @@
 
 Este projeto tem como objetivo extrair tabelas de um arquivo PDF utilizando a biblioteca Camelot, realizar o tratamento dos dados com Pandas e armazená-los em um arquivo CSV compactado (ZIP).
 
-Descrição
+## Descrição
 
 O script lê um arquivo PDF localizado na pasta `docs`, extrai as tabelas das páginas 3 a 181, realiza a limpeza dos dados (remoção de colunas vazias, padronização dos cabeçalhos, etc.) e salva o resultado final compactado em um arquivo `.zip`.
 
